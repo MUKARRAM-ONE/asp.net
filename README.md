@@ -1,70 +1,110 @@
-# TaskManagerPro (ASP.NET Core MVC)
+# TaskManagerPro
 
-TaskManagerPro is a multi-user task management web app built with ASP.NET Core MVC and Entity Framework Core. It provides authentication, dashboard insights, CRUD for tasks, category organization, and light/dark theme support.
+**TaskManagerPro** is a comprehensive, multi-user task management application built with **ASP.NET Core MVC (net10.0)** and **Entity Framework Core**. It features a modern, responsive user interface styled with **Glassmorphism** design principles, offering a premium user experience for organizing personal and professional tasks.
 
-## Features
-- User authentication with cookie-based login/register/logout
-- Dashboard with task stats (total, completed, in-progress, pending), priority breakdown, category counts, and recent tasks
-- Tasks CRUD: create, edit, delete, list (per-user) with priority, status, due date, and category
-- Categories with icon/color; default seed (Work, Personal, Study)
-- Light/Dark theme toggle persisted per user (and in local storage)
-- Responsive UI with glassmorphism styling and bootstrap
+## 🚀 Key Features
 
-## Tech Stack
-- ASP.NET Core MVC (net10.0)
-- Entity Framework Core (SQL Server provider)
-- Bootstrap, Font Awesome, custom CSS/JS
+### 🔐 Authentication & User Management
+- **Secure Access**: Cookie-based authentication system with Login, Registration, and Logout capabilities.
+- **Data Isolation**: All tasks, categories, and dashboard statistics are strictly scoped to the authenticated user.
+- **Personalization**:
+    - **Theme Support**: Built-in Light and Dark modes, persisted via LocalStorage and server-side user preferences.
+    - **User Profile**: Tracks account creation date and theme settings.
 
-## Project Structure (key paths)
-- `myweb/Program.cs` – app startup, DI, auth, session, category seeding
-- `myweb/Data/ApplicationDbContext.cs` – EF Core DbContext and model configuration
-- `myweb/Models/` – `User`, `Task`, `Category`, auth view models
-- `myweb/Controllers/` – `AccountController`, `DashboardController`, `TasksController`, `HomeController`
-- `myweb/Views/` – Razor views for account, dashboard, tasks, layout, home
-- `myweb/wwwroot/` – static assets (CSS, JS, bootstrap libs)
-- `myweb/Migrations/` – EF Core migrations
+### 📊 Interactive Dashboard
+The dashboard provides a real-time overview of productivity:
+- **Task Statistics**: Instant counts for Total, Pending (To-Do), In-Progress, and Completed tasks.
+- **Priority Breakdown**: Visual distribution of active tasks by High, Medium, and Low priority.
+- **Category Insights**: Aggregated task counts per category (e.g., Work, Personal, Study).
+- **Recent Activity**: Quick view of the 5 most recently created tasks.
 
-## Prerequisites
-- .NET SDK 10 (matches `TargetFramework net10.0`)
-- SQL Server (local or remote). Default connection string is in `myweb/appsettings.json`.
-- (Optional) `dotnet-ef` tool for running migrations:
-  ```bash
-  dotnet tool install --global dotnet-ef
-  ```
+### ✅ Task Management
+Full CRUD (Create, Read, Update, Delete) capabilities with rich metadata:
+- **Properties**:
+    - **Title & Description**: Detailed task information.
+    - **Priority**: `Low`, `Medium`, `High`.
+    - **Status**: `To Do`, `In Progress`, `Done`.
+    - **Due Date**: Optional deadline tracking.
+    - **Categories**: Organize tasks into color-coded buckets (Work, Personal, Study, etc.).
+- **Organization**:
+    - Default sorting by creation date (newest first).
+    - Archived state support (soft delete logic available in model).
 
-## Setup & Run
-1) Clone and restore:
-   ```bash
-   git clone https://github.com/MUKARRAM-ONE/asp.net.git
-   cd asp.net/myweb
-   dotnet restore
-   ```
+### 🎨 Modern UI/UX
+- **Glassmorphism Design**: Translucent, frosted-glass effects on cards, navbars, and containers (`glass.css`).
+- **Responsive Layout**: Built on **Bootstrap 5**, ensuring seamless usage on mobile, tablet, and desktop.
+- **Visual Cues**:
+    - **Icons**: Font Awesome 6 integration for intuitive navigation and category representation.
+    - **Fonts**: Google Fonts (**Poppins** for headers, **Inter** for body text) for excellent readability.
 
-2) Configure database (if needed):
-   - Update `ConnectionStrings:DefaultConnection` in `appsettings.json` (and `appsettings.Development.json` if you use it).
+## 🛠 Tech Stack
 
-3) Apply migrations and create the database:
-   ```bash
-   dotnet ef database update
-   ```
-   (This applies the migrations under `myweb/Migrations/` and seeds default categories on startup.)
+- **Framework**: ASP.NET Core MVC (.NET 10.0)
+- **Database**: SQL Server (via Entity Framework Core 10.0.2)
+- **Frontend**:
+    - Razor Views (`.cshtml`)
+    - Bootstrap 5 (CSS framework)
+    - jQuery & jQuery Validation (Client-side logic)
+    - Font Awesome 6.4.0 (Icons)
+- **Styling**: Custom CSS with Glassmorphism variables (`site.css`, `glass.css`).
 
-4) Run the app:
-   ```bash
-   dotnet run
-   ```
-   App will listen on the URLs from `Properties/launchSettings.json` (e.g., http://localhost:5153).
+## 📂 Project Structure
 
-## Usage Notes
-- Register a user account, then sign in. All tasks and dashboard stats are scoped to the logged-in user.
-- Use the Theme button in the navbar to toggle light/dark; preference is stored per user and in local storage.
-- Categories are seeded (Work, Personal, Study); you can extend via database or add a category management feature.
+| Path | Description |
+| :--- | :--- |
+| `myweb/Program.cs` | Application entry point, dependency injection, auth configuration, and database seeding. |
+| `myweb/Data/` | Contains `ApplicationDbContext` and database configuration. |
+| `myweb/Models/` | Domain entities: `User`, `Task`, `Category`, plus ViewModels (`ErrorViewModel`, `AccountViewModels`). |
+| `myweb/Controllers/` | MVC Controllers: `Account`, `Dashboard`, `Tasks`, `Home`. |
+| `myweb/Views/` | Razor pages organized by controller. Includes Shared layouts and partials. |
+| `myweb/wwwroot/` | Static assets: `css/`, `js/`, `lib/` (Bootstrap, jQuery). |
+| `myweb/Migrations/` | EF Core database migration files. |
+| `specs/` | Detailed feature specifications, plans, and architectural docs (SDD). |
 
-## Scripts Reference
-- Build: `dotnet build`
-- Run: `dotnet run`
-- Apply migrations: `dotnet ef database update`
-- Add migration (if you change models): `dotnet ef migrations add <Name>`
+## ⚙️ Setup & Installation
 
-## License
-MIT License. See [LICENSE](LICENSE).
+### Prerequisites
+- **.NET SDK 10.0**: Required to build and run the application.
+- **SQL Server**: LocalDB or a full instance.
+- **EF Core Tools**: For managing database migrations (`dotnet tool install --global dotnet-ef`).
+
+### Installation Steps
+
+1.  **Clone the Repository**
+    ```bash
+    git clone https://github.com/your-repo/task-manager-pro.git
+    cd web_ccp
+    ```
+
+2.  **Restore Dependencies**
+    ```bash
+    cd myweb
+    dotnet restore
+    ```
+
+3.  **Configure Database**
+    - Open `appsettings.json`.
+    - Update the `DefaultConnection` string to point to your SQL Server instance.
+
+4.  **Apply Migrations**
+    Creates the database and seeds default categories (Work, Personal, Study).
+    ```bash
+    dotnet ef database update
+    ```
+
+5.  **Run the Application**
+    ```bash
+    dotnet run
+    ```
+    Access the app at `http://localhost:5153` (or the port specified in the output).
+
+## 🔮 Roadmap (In Development)
+
+The following features are specified and currently in the implementation phase:
+- **Kanban Board**: Drag-and-drop task management.
+- **Pomodoro Timer**: Integrated productivity timer.
+- **Voice Input**: Create tasks using speech recognition.
+- **Export Tools**: Export tasks to CSV/PDF.
+
+## 📄 License
+This project is licensed under the MIT License. See [LICENSE](LICENSE).
