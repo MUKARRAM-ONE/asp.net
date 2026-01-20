@@ -1,0 +1,89 @@
+openapi: 3.0.0
+info:
+  title: Premium Task Manager Internal API
+  description: Endpoints for AJAX interactions (Dashboard, Kanban, Quick Actions)
+  version: 1.0.0
+paths:
+  /api/tasks/stats:
+    get:
+      summary: Get dashboard statistics
+      responses:
+        '200':
+          description: Stats object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                  completed:
+                    type: integer
+                  pending:
+                    type: integer
+                  overdue:
+                    type: integer
+                  completionRate:
+                    type: number
+
+  /api/tasks/{id}/status:
+    patch:
+      summary: Update task status (Drag-and-Drop)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum: [ToDo, InProgress, Done]
+      responses:
+        '200':
+          description: Updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+
+  /api/tasks/{id}/priority:
+    patch:
+      summary: Update task priority
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                priority:
+                  type: string
+                  enum: [Low, Medium, High]
+      responses:
+        '200':
+          description: Updated successfully
+
+components:
+  schemas:
+    Task:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        status:
+          type: string
+        priority:
+          type: string

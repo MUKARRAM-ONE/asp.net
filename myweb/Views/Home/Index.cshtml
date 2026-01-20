@@ -1,8 +1,213 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home - TaskManagerPro";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!-- Hero Section -->
+<section class="hero-section text-center py-5 mb-5">
+    <div class="container">
+        <div class="mb-4">
+            <i class="fas fa-check-double text-gradient" style="font-size: 4rem;"></i>
+        </div>
+        <h1 class="display-3 fw-bold mb-4">
+            Welcome to <span class="text-gradient">TaskManagerPro</span>
+        </h1>
+        <p class="lead text-secondary mb-4 fs-4">
+            Your ultimate productivity companion for managing tasks, tracking progress, and achieving your goals
+        </p>
+        <div class="d-flex justify-content-center gap-3 mb-5">
+            <a asp-controller="Tasks" asp-action="Index" class="btn btn-primary-custom btn-lg">
+                <i class="fas fa-tasks me-2"></i>View My Tasks
+            </a>
+            <a asp-controller="Dashboard" asp-action="Index" class="btn btn-outline-primary btn-lg">
+                <i class="fas fa-chart-line me-2"></i>Dashboard
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section mb-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">Powerful Features</h2>
+            <p class="text-secondary fs-5">Everything you need to stay organized and productive</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="glass-card p-4 text-center h-100">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-list-check text-primary" style="font-size: 3rem;"></i>
+                    </div>
+                    <h4 class="mb-3">Task Management</h4>
+                    <p class="text-muted">
+                        Create, organize, and track your tasks with ease. Set priorities, due dates, and categories to stay on top of your work.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="glass-card p-4 text-center h-100">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-chart-pie text-success" style="font-size: 3rem;"></i>
+                    </div>
+                    <h4 class="mb-3">Analytics Dashboard</h4>
+                    <p class="text-muted">
+                        Get insights into your productivity with comprehensive statistics and visualizations of your task progress.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="glass-card p-4 text-center h-100">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-tags text-warning" style="font-size: 3rem;"></i>
+                    </div>
+                    <h4 class="mb-3">Smart Categories</h4>
+                    <p class="text-muted">
+                        Organize tasks with customizable categories, icons, and colors for better visual organization and quick filtering.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="glass-card p-4 text-center h-100">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-bell text-danger" style="font-size: 3rem;"></i>
+                    </div>
+                    <h4 class="mb-3">Priority Levels</h4>
+                    <p class="text-muted">
+                        Mark tasks as high, medium, or low priority to focus on what matters most and meet critical deadlines.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="glass-card p-4 text-center h-100">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-calendar-alt text-info" style="font-size: 3rem;"></i>
+                    </div>
+                    <h4 class="mb-3">Due Date Tracking</h4>
+                    <p class="text-muted">
+                        Set and track due dates for your tasks to ensure you never miss an important deadline or commitment.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="glass-card p-4 text-center h-100">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-palette text-secondary" style="font-size: 3rem;"></i>
+                    </div>
+                    <h4 class="mb-3">Beautiful Design</h4>
+                    <p class="text-muted">
+                        Enjoy a modern glassmorphism UI with smooth animations and an intuitive interface that's a pleasure to use.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Stats Section -->
+<section class="stats-section py-5 mb-5">
+    <div class="container">
+        <div class="glass-card p-5">
+            <div class="row text-center">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <div class="stat-item">
+                        <i class="fas fa-rocket text-primary mb-3" style="font-size: 2.5rem;"></i>
+                        <h3 class="fw-bold mb-2">Fast & Efficient</h3>
+                        <p class="text-muted">Built with ASP.NET Core for lightning-fast performance</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <div class="stat-item">
+                        <i class="fas fa-shield-alt text-success mb-3" style="font-size: 2.5rem;"></i>
+                        <h3 class="fw-bold mb-2">Secure & Reliable</h3>
+                        <p class="text-muted">Your data is protected with industry-standard security</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-item">
+                        <i class="fas fa-mobile-alt text-info mb-3" style="font-size: 2.5rem;"></i>
+                        <h3 class="fw-bold mb-2">Responsive Design</h3>
+                        <p class="text-muted">Access your tasks from any device, anywhere</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section text-center py-5">
+    <div class="container">
+        <div class="glass-card p-5">
+            <h2 class="display-5 fw-bold mb-3">Ready to Get Started?</h2>
+            <p class="lead text-secondary mb-4">
+                Start organizing your tasks and boost your productivity today
+            </p>
+            <a asp-controller="Tasks" asp-action="Create" class="btn btn-primary-custom btn-lg">
+                <i class="fas fa-plus-circle me-2"></i>Create Your First Task
+            </a>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <style>
+        .hero-section {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .features-section .glass-card {
+            transition: all 0.3s ease;
+        }
+        
+        .features-section .glass-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+        
+        .feature-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .feature-icon:nth-child(2n) {
+            animation-delay: 0.5s;
+        }
+        
+        .stat-item i {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @@keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @@keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        @@keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+    </style>
+}

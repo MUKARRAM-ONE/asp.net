@@ -1,0 +1,240 @@
+@model List<myweb.Models.Task>
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="dashboard-header mb-4">
+    <h1 class="text-gradient display-4 mb-2">Dashboard</h1>
+    <p class="text-secondary fs-5">Overview of your tasks and productivity</p>
+</div>
+
+<!-- Statistics Cards -->
+<div class="row g-4 mb-4">
+    <div class="col-md-3">
+        <div class="glass-card p-4">
+            <div class="d-flex align-items-center justify-content-between">
+                <div>
+                    <p class="text-muted mb-1">Total Tasks</p>
+                    <h2 class="mb-0 fw-bold">@ViewBag.TotalTasks</h2>
+                </div>
+                <div class="stat-icon bg-primary">
+                    <i class="fas fa-tasks"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="glass-card p-4">
+            <div class="d-flex align-items-center justify-content-between">
+                <div>
+                    <p class="text-muted mb-1">Completed</p>
+                    <h2 class="mb-0 fw-bold text-success">@ViewBag.CompletedTasks</h2>
+                </div>
+                <div class="stat-icon bg-success">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="glass-card p-4">
+            <div class="d-flex align-items-center justify-content-between">
+                <div>
+                    <p class="text-muted mb-1">In Progress</p>
+                    <h2 class="mb-0 fw-bold text-warning">@ViewBag.InProgressTasks</h2>
+                </div>
+                <div class="stat-icon bg-warning">
+                    <i class="fas fa-spinner"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="glass-card p-4">
+            <div class="d-flex align-items-center justify-content-between">
+                <div>
+                    <p class="text-muted mb-1">Pending</p>
+                    <h2 class="mb-0 fw-bold text-info">@ViewBag.PendingTasks</h2>
+                </div>
+                <div class="stat-icon bg-info">
+                    <i class="fas fa-clock"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Priority & Categories -->
+<div class="row g-4 mb-4">
+    <div class="col-md-6">
+        <div class="glass-card p-4">
+            <h4 class="mb-4"><i class="fas fa-exclamation-triangle me-2"></i>Tasks by Priority</h4>
+            <div class="priority-list">
+                <div class="priority-item d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <span class="badge bg-danger me-2">High</span>
+                        <span class="text-muted">Urgent tasks</span>
+                    </div>
+                    <span class="fw-bold fs-5">@ViewBag.HighPriorityTasks</span>
+                </div>
+                <div class="priority-item d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <span class="badge bg-warning me-2">Medium</span>
+                        <span class="text-muted">Important tasks</span>
+                    </div>
+                    <span class="fw-bold fs-5">@ViewBag.MediumPriorityTasks</span>
+                </div>
+                <div class="priority-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="badge bg-secondary me-2">Low</span>
+                        <span class="text-muted">Regular tasks</span>
+                    </div>
+                    <span class="fw-bold fs-5">@ViewBag.LowPriorityTasks</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="glass-card p-4">
+            <h4 class="mb-4"><i class="fas fa-folder me-2"></i>Tasks by Category</h4>
+            <div class="category-list">
+                @if (ViewBag.TasksByCategory != null && ViewBag.TasksByCategory.Count > 0)
+                {
+                    @foreach (var category in ViewBag.TasksByCategory)
+                    {
+                        <div class="category-item d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <i class="@category.IconClass me-2" style="color: @category.ColorHex;"></i>
+                                <span>@category.Name</span>
+                            </div>
+                            <span class="badge" style="background-color: @category.ColorHex;">@category.TaskCount</span>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="text-muted">No categories yet. Create some to organize your tasks!</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Tasks -->
+<div class="row">
+    <div class="col-12">
+        <div class="glass-card p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="mb-0"><i class="fas fa-history me-2"></i>Recent Tasks</h4>
+                <a asp-controller="Tasks" asp-action="Index" class="btn btn-primary-custom btn-sm">View All</a>
+            </div>
+            
+            @if (Model != null && Model.Count > 0)
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Priority</th>
+                                <th>Status</th>
+                                <th>Due Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var task in Model)
+                            {
+                                <tr>
+                                    <td>@task.Title</td>
+                                    <td>
+                                        @if (task.Category != null)
+                                        {
+                                            <i class="@task.Category.IconClass me-1" style="color: @task.Category.ColorHex;"></i>
+                                            <span>@task.Category.Name</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (task.Priority == myweb.Models.TaskPriority.High)
+                                        {
+                                            <span class="badge bg-danger">High</span>
+                                        }
+                                        else if (task.Priority == myweb.Models.TaskPriority.Medium)
+                                        {
+                                            <span class="badge bg-warning">Medium</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">Low</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (task.Status == myweb.Models.TaskStatus.Done)
+                                        {
+                                            <span class="badge bg-success">Done</span>
+                                        }
+                                        else if (task.Status == myweb.Models.TaskStatus.InProgress)
+                                        {
+                                            <span class="badge bg-warning">In Progress</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-info">To Do</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (task.DueDate != null)
+                                        {
+                                            @task.DueDate?.ToShortDateString()
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">No due date</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="text-center py-5">
+                    <i class="fas fa-tasks text-muted" style="font-size: 4rem;"></i>
+                    <p class="text-muted mt-3">No tasks yet. Start by creating your first task!</p>
+                    <a asp-controller="Tasks" asp-action="Create" class="btn btn-primary-custom">Create Task</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <style>
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .priority-item, .category-item {
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+        }
+        
+        .priority-item:hover, .category-item:hover {
+            background-color: rgba(0, 0, 0, 0.03);
+        }
+    </style>
+}

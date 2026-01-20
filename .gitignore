@@ -1,24 +1,9 @@
-## Build outputs
 bin/
 obj/
-
-## VS/VSCode
+.vscode/
 .vs/
 *.user
 *.suo
-*.userosscache
-*.sln.docstates
-
-## Logs
-*.log
-
-## NuGet
-*.nupkg
-packages/
-
-## OS
-[Dd]esktop.ini
-[Tt]humbs.db
-
-## Others
-*.DS_Store
+*.db
+*.lock.json
+appsettings.Development.json
