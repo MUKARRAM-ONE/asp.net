@@ -45,7 +45,8 @@ namespace myweb.Controllers
                     {
                         new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                         new Claim(ClaimTypes.Name, user.Username),
-                        new Claim(ClaimTypes.Email, user.Email)
+                        new Claim(ClaimTypes.Email, user.Email),
+                        new Claim("theme", user.ThemePreference ?? "Light")
                     };
 
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -119,10 +120,59 @@ namespace myweb.Controllers
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                     new Claim(ClaimTypes.Name, user.Username),
-                    new Claim(ClaimTypes.Email, user.Email)
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim("theme", user.ThemePreference ?? "Light")
                 };
 
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> Theme()
+        {
+            var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userIdStr))
+            {
+                return Ok(new { theme = "Light" });
+            }
+            var userId = int.Parse(userIdStr);
+            var user = await _context.Users.FindAsync(userId);
+            var theme = user?.ThemePreference ?? "Light";
+            return Ok(new { theme });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> SetTheme([FromForm] string theme)
+        {
+            var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userIdStr))
+            {
+                return BadRequest();
+            }
+            var userId = int.Parse(userIdStr);
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            user.ThemePreference = string.Equals(theme, "dark", StringComparison.OrdinalIgnoreCase) ? "Dark" : "Light";
+            await _context.SaveChangesAsync();
+
+            // Update auth cookie with new claim
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim("theme", user.ThemePreference)
+            };
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+
+            return Ok();
+        }
+
                 await HttpContext.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme,
                     new ClaimsPrincipal(claimsIdentity));

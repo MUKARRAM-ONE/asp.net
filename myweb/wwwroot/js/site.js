@@ -1,4 +1,12 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿// Theme helpers
+(function () {
+	function applyTheme(theme) {
+		document.documentElement.setAttribute('data-theme', theme === 'dark' ? 'dark' : 'light');
+		try { localStorage.setItem('theme', theme); } catch (e) {}
+	}
 
-// Write your JavaScript code.
+	// Apply saved theme on load
+	var saved = null;
+	try { saved = localStorage.getItem('theme'); } catch (e) {}
+	applyTheme(saved || 'light');
+})();
