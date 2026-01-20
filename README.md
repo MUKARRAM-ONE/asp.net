@@ -67,4 +67,4 @@ TaskManagerPro is a multi-user task management web app built with ASP.NET Core M
 - Add migration (if you change models): `dotnet ef migrations add <Name>`
 
 ## License
-Not specified. Add a license file if you plan to distribute.
+MIT License. See [LICENSE](LICENSE).
