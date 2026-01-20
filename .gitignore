@@ -1,0 +1,24 @@
+## Build outputs
+bin/
+obj/
+
+## VS/VSCode
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Logs
+*.log
+
+## NuGet
+*.nupkg
+packages/
+
+## OS
+[Dd]esktop.ini
+[Tt]humbs.db
+
+## Others
+*.DS_Store
